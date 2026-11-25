@@ -1,0 +1,10 @@
+data/
+.env
+.venv/
+__pycache__/
+*.pyc
+eval/results.csv
+*.pdf
+*.doc
+*.docx
+*.pptx

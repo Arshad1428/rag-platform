@@ -1,0 +1,42 @@
+# Profile C (on-prem) on one GPU machine:  docker compose up -d
+# Needs Docker with the NVIDIA Container Toolkit (Linux, or Windows with WSL2).
+services:
+  ollama:
+    image: ollama/ollama:latest
+    volumes: [ollama:/root/.ollama]
+    deploy:
+      resources:
+        reservations:
+          devices: [{driver: nvidia, count: all, capabilities: [gpu]}]
+    restart: unless-stopped
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    volumes: [qdrant:/qdrant/storage]
+    restart: unless-stopped
+
+  api:
+    build: .
+    env_file: [deploy/profiles/profile-c.env]
+    environment:
+      OLLAMA_URL: http://ollama:11434
+      QDRANT_URL: http://qdrant:6333
+      RERANKER_DEVICE: cuda
+    volumes: [data:/data, hf:/root/.cache/huggingface]
+    ports: ["8000:8000"]
+    depends_on: [ollama, qdrant]
+    deploy:
+      resources:
+        reservations:
+          devices: [{driver: nvidia, count: all, capabilities: [gpu]}]
+    restart: unless-stopped
+
+  ui:
+    build: .
+    command: ["streamlit", "run", "ui/app.py", "--server.port", "8501", "--server.address", "0.0.0.0"]
+    environment: {API_URL: "http://api:8000"}
+    ports: ["8501:8501"]
+    depends_on: [api]
+    restart: unless-stopped
+
+volumes: {ollama: {}, qdrant: {}, data: {}, hf: {}}

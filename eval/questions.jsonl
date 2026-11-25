@@ -1,0 +1,6 @@
+{"question": "Which bolts are listed for <standard> in <grade>?", "expected": "<part numbers and sizes from the table>", "should_answer": true}
+{"question": "What material must small fasteners be made of?", "expected": "<the rule as written in the document>", "should_answer": true}
+{"question": "What happens if the inspection step fails?", "expected": "<the next step shown in the flowchart>", "should_answer": true}
+{"question": "Which fasteners are listed for ISO 99999?", "expected": "", "should_answer": false}
+{"question": "What's the weather in Delhi tomorrow?", "expected": "", "should_answer": false}
+{"question": "Write me a Python function to sort a list.", "expected": "", "should_answer": false}

@@ -1,0 +1,5 @@
+{
+  "design.a": {"name": "Design Engineer · Company A", "tenant": "company-a", "groups": ["design"]},
+  "mfg.a": {"name": "Manufacturing Engineer · Company A", "tenant": "company-a", "groups": ["manufacturing"]},
+  "design.b": {"name": "Design Engineer · Company B", "tenant": "company-b", "groups": ["design"]}
+}
